@@ -1,0 +1,197 @@
+{
+  "currentUser": {
+    "id": "u0",
+    "username": "Pegoles",
+    "handle": "@124",
+    "avatar": "AV",
+    "bio": "Founder of NullNode. Mapping the pulse of the network in neon and noise.",
+    "followers": 18240,
+    "following": 342,
+    "followingIds": [
+      "u1",
+      "u2",
+      "u3"
+    ]
+  },
+  "users": [
+    {
+      "id": "u0",
+      "username": "Astra Vega",
+      "handle": "@astra",
+      "avatar": "AV",
+      "bio": "Founder of NullNode. Mapping the pulse of the network in neon and noise.",
+      "followers": 18240,
+      "following": 342,
+      "followingIds": [
+        "u1",
+        "u2",
+        "u3"
+      ]
+    },
+    {
+      "id": "u1",
+      "username": "Cipher Bloom",
+      "handle": "@cipherb",
+      "avatar": "CB",
+      "bio": "Signals analyst. Watching the grid for emergent behavior.",
+      "followers": 8200,
+      "following": 310,
+      "followingIds": [
+        "u0",
+        "u2"
+      ]
+    },
+    {
+      "id": "u2",
+      "username": "Nova Lin",
+      "handle": "@novalin",
+      "avatar": "NL",
+      "bio": "UX architect. Building luminous spaces for human connection.",
+      "followers": 12740,
+      "following": 502,
+      "followingIds": [
+        "u0",
+        "u1"
+      ]
+    },
+    {
+      "id": "u3",
+      "username": "Echo Drift",
+      "handle": "@echod",
+      "avatar": "ED",
+      "bio": "Realtime systems. If it moves, I visualize it.",
+      "followers": 6540,
+      "following": 188,
+      "followingIds": [
+        "u0"
+      ]
+    }
+  ],
+  "posts": [
+    {
+      "id": "0QneYxTk0Ea15lwIg9JLj",
+      "userId": "u0",
+      "username": "Astra Vega",
+      "handle": "@astra",
+      "avatar": "AV",
+      "content": "eu nao sei oq falar",
+      "timestamp": "2026-03-13T14:36:05.958Z",
+      "likes": 0,
+      "comments": 0,
+      "reposts": 0
+    },
+    {
+      "id": "plSzfHq6HFxh3JH_V9itr",
+      "userId": "u0",
+      "username": "Astra Vega",
+      "handle": "@astra",
+      "avatar": "AV",
+      "content": "ola tudo bem? eu sou o primeiro usuario deste site",
+      "timestamp": "2026-03-12T19:39:35.089Z",
+      "likes": 0,
+      "comments": 0,
+      "reposts": 0
+    },
+    {
+      "id": "Y-8oWJTzbPiMGWteraYg-",
+      "userId": "u0",
+      "username": "Astra Vega",
+      "handle": "@astra",
+      "avatar": "AV",
+      "content": "hello gays",
+      "timestamp": "2026-03-12T19:10:01.846Z",
+      "likes": 0,
+      "comments": 0,
+      "reposts": 0
+    },
+    {
+      "id": "aPxHhAjv5buTx1fNPEGGH",
+      "userId": "u0",
+      "username": "Astra Vega",
+      "handle": "@astra",
+      "avatar": "AV",
+      "content": "oi",
+      "timestamp": "2026-03-12T17:29:56.626Z",
+      "likes": 0,
+      "comments": 0,
+      "reposts": 0
+    },
+    {
+      "id": "QeCkkneXUKDNLlfkX9nhW",
+      "userId": "u0",
+      "username": "Astra Vega",
+      "handle": "@astra",
+      "avatar": "AV",
+      "content": "pegoles",
+      "timestamp": "2026-03-12T17:02:02.254Z",
+      "likes": 0,
+      "comments": 0,
+      "reposts": 0
+    },
+    {
+      "id": "p1",
+      "userId": "u1",
+      "username": "Cipher Bloom",
+      "handle": "@cipherb",
+      "avatar": "CB",
+      "content": "NullNode is live. The timeline breathes again. Follow the signals, trust the pulse.",
+      "timestamp": "2026-03-12T15:54:00.000Z",
+      "likes": 218,
+      "comments": 42,
+      "reposts": 31,
+      "liked": true
+    },
+    {
+      "id": "p2",
+      "userId": "u2",
+      "username": "Nova Lin",
+      "handle": "@novalin",
+      "avatar": "NL",
+      "content": "Designing a social layer that feels alive. Neon edges, soft glows, zero noise.",
+      "timestamp": "2026-03-12T15:42:00.000Z",
+      "likes": 146,
+      "comments": 18,
+      "reposts": 12
+    },
+    {
+      "id": "p3",
+      "userId": "u0",
+      "username": "Astra Vega",
+      "handle": "@astra",
+      "avatar": "AV",
+      "content": "Tonight we ship the network map. Every follow, reply, and repost becomes light.",
+      "timestamp": "2026-03-12T15:34:00.000Z",
+      "likes": 390,
+      "comments": 68,
+      "reposts": 44
+    },
+    {
+      "id": "p4",
+      "userId": "u3",
+      "username": "Echo Drift",
+      "handle": "@echod",
+      "avatar": "ED",
+      "content": "Realtime feed latency is now under 120ms. The grid feels instant.",
+      "timestamp": "2026-03-12T15:18:00.000Z",
+      "likes": 99,
+      "comments": 11,
+      "reposts": 9
+    }
+  ],
+  "notifications": [
+    {
+      "id": "n1",
+      "title": "New follower",
+      "detail": "Nova Lin started following you.",
+      "timestamp": "2026-03-12T15:56:00.000Z",
+      "tone": "success"
+    },
+    {
+      "id": "n2",
+      "title": "Post traction spike",
+      "detail": "Your post reached 1.2k impressions in the last hour.",
+      "timestamp": "2026-03-12T15:38:00.000Z",
+      "tone": "info"
+    }
+  ]
+}
