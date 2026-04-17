@@ -6,9 +6,9 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 const variants = {
-  primary: 'bg-transparent text-white border-white/30 hover:border-neon-green/60',
-  ghost: 'bg-white/5 text-white/70 border-white/15 hover:border-neon-green/60',
-  accent: 'bg-neon-green/20 text-white border-neon-green/50 hover:bg-neon-green/30'
+  primary: 'bg-transparent text-text border-border hover:border-primary/60',
+  ghost: 'bg-surface-elevated text-text-muted border-border hover:border-primary/60',
+  accent: 'bg-primary/20 text-text border-primary/50 hover:bg-primary/30'
 }
 
 const sizes = {

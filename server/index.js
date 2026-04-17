@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
-import { WebSocketServer } from 'ws'
 import { readDb } from './utils/db.js'
+import { initWsManager } from './utils/wsManager.js'
 
 import postsRouter from './routes/posts.js'
 import usersRouter from './routes/users.js'
@@ -34,9 +34,5 @@ const server = app.listen(PORT, () => {
   console.log(`NullNode server running on http://localhost:${PORT}`)
 })
 
-const wss = new WebSocketServer({ server, path: '/ws' })
-app.locals.wss = wss
-
-wss.on('connection', (socket) => {
-  socket.send(JSON.stringify({ type: 'hello', data: 'NullNode socket ready' }))
-})
+// Initialize WebSockets
+initWsManager(server)

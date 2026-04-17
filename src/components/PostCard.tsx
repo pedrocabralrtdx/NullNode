@@ -6,7 +6,7 @@ import CyberButton from './CyberButton'
 import { CommentIcon, HeartIcon, RepostIcon } from './Icons'
 
 const actionClasses =
-  'flex items-center gap-2 text-xs text-white/60 transition-colors duration-200'
+  'flex items-center gap-2 text-xs text-text-muted transition-colors duration-200'
 
 type Props = {
   post: Post
@@ -56,7 +56,7 @@ export const PostCard = memo(function PostCard({
       <div className="flex items-start gap-4">
         <button
           onClick={() => onProfileClick?.(post.userId)}
-          className="h-12 w-12 border border-white/25 bg-black flex items-center justify-center text-sm font-bold text-white"
+          className="h-12 w-12 border border-border bg-surface flex items-center justify-center text-sm font-bold text-text"
         >
           {post.avatar}
         </button>
@@ -64,42 +64,42 @@ export const PostCard = memo(function PostCard({
           <div className="flex flex-wrap items-center gap-2 text-sm">
             <button
               onClick={() => onProfileClick?.(post.userId)}
-              className="font-semibold text-white hover:text-neon-green"
+              className="font-semibold text-text hover:text-primary"
             >
               {post.username}
             </button>
             <button
               onClick={() => onProfileClick?.(post.userId)}
-              className="text-neon-green/80 hover:text-neon-green"
+              className="text-primary/80 hover:text-primary"
             >
               {post.handle}
             </button>
-            <span className="text-xs text-white/50">{timeAgo(post.timestamp)}</span>
+            <span className="text-xs text-text-muted">{timeAgo(post.timestamp)}</span>
           </div>
-          <p className="mt-3 text-sm leading-relaxed text-white">{post.content}</p>
+          <p className="mt-3 text-sm leading-relaxed text-text">{post.content}</p>
           <div className="mt-4 flex flex-wrap items-center gap-6">
             <motion.button
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.05 }}
-              className={`${actionClasses} ${post.liked ? 'text-neon-green' : 'hover:text-neon-green'}`}
+              className={`${actionClasses} ${post.liked ? 'text-primary' : 'hover:text-primary'}`}
               onClick={() => onLike(post.id)}
             >
               <HeartIcon />
-              {post.likes}
+              {post.likes.length}
             </motion.button>
             <button
-              className={`${actionClasses} hover:text-neon-green`}
+              className={`${actionClasses} hover:text-primary`}
               onClick={() => onToggleComments(post.id)}
             >
               <CommentIcon />
               {post.comments}
             </button>
             <button
-              className={`${actionClasses} ${post.reposted ? 'text-neon-green' : 'hover:text-neon-green'}`}
+              className={`${actionClasses} ${post.reposted ? 'text-primary' : 'hover:text-primary'}`}
               onClick={() => onRepost(post.id)}
             >
               <RepostIcon />
-              {post.reposts}
+              {post.reposts.length}
             </button>
           </div>
           <AnimatePresence initial={false}>
@@ -109,30 +109,30 @@ export const PostCard = memo(function PostCard({
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.2 }}
-                className="mt-4 space-y-3 overflow-hidden border border-white/15 bg-black/70 p-4"
+                className="mt-4 space-y-3 overflow-hidden border border-border bg-surface-elevated p-4"
               >
-                <div className="text-xs uppercase tracking-[0.3em] text-white/50">Comments</div>
+                <div className="text-xs uppercase tracking-[0.3em] text-text-muted">Comments</div>
                 <div className="space-y-3">
                   {comments.length === 0 && (
-                    <div className="text-xs text-white/50">No comments yet.</div>
+                    <div className="text-xs text-text-muted">No comments yet.</div>
                   )}
                   {comments.map((comment) => (
                     <div key={comment.id} className="flex gap-3">
-                      <div className="h-8 w-8 border border-white/25 bg-black text-white flex items-center justify-center text-xs font-semibold">
+                      <div className="h-8 w-8 border border-border bg-surface text-text flex items-center justify-center text-xs font-semibold">
                         {comment.avatar}
                       </div>
                       <div>
                         <div className="flex items-center gap-2 text-xs">
-                          <span className="text-white">{comment.username}</span>
-                          <span className="text-neon-green">{comment.handle}</span>
-                          <span className="text-white/50">{timeAgo(comment.timestamp)}</span>
+                          <span className="text-text">{comment.username}</span>
+                          <span className="text-primary">{comment.handle}</span>
+                          <span className="text-text-muted">{timeAgo(comment.timestamp)}</span>
                         </div>
-                        <p className="mt-1 text-sm text-white">{comment.content}</p>
+                        <p className="mt-1 text-sm text-text">{comment.content}</p>
                       </div>
                     </div>
                   ))}
                   {comments.length > 0 && comments.length < post.comments && (
-                    <div className="text-xs text-white/50">
+                    <div className="text-xs text-text-muted">
                       Showing latest {comments.length} of {post.comments} comments.
                     </div>
                   )}
@@ -143,7 +143,7 @@ export const PostCard = memo(function PostCard({
                     onChange={(event) => setDraft(event.target.value)}
                     placeholder="Write a comment..."
                     maxLength={180}
-                    className="flex-1 min-w-[180px] border border-white/20 bg-black px-3 py-2 text-sm text-white placeholder:text-white/40 focus:border-neon-green focus:outline-none"
+                    className="flex-1 min-w-[180px] border border-border bg-surface px-3 py-2 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none"
                   />
                   <CyberButton size="sm" variant="accent" onClick={submitComment}>
                     Send

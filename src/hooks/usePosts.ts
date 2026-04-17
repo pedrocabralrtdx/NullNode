@@ -16,10 +16,10 @@ export function usePosts() {
       handle: currentUser.handle,
       avatar: currentUser.avatar,
       content: trimmed.slice(0, 280),
-      timestamp: new Date().toISOString(),
-      likes: 0,
+      likes: [],
       comments: 0,
-      reposts: 0
+      reposts: [],
+      timestamp: new Date().toISOString()
     }
 
     setPosts((prev) => [newPost, ...prev])
@@ -49,7 +49,7 @@ export function usePosts() {
     updatePost(id, (post) => ({
       ...post,
       liked: !post.liked,
-      likes: post.likes + (post.liked ? -1 : 1)
+      likes: post.liked ? post.likes.filter(uid => uid !== currentUser.id) : [...post.likes, currentUser.id]
     }))
 
     if (serverStatus === 'online') {
@@ -73,7 +73,7 @@ export function usePosts() {
     updatePost(id, (post) => ({
       ...post,
       reposted: !post.reposted,
-      reposts: post.reposts + (post.reposted ? -1 : 1)
+      reposts: post.reposted ? post.reposts.filter(uid => uid !== currentUser.id) : [...post.reposts, currentUser.id]
     }))
   }
 

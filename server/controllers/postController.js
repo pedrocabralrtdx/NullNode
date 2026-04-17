@@ -1,5 +1,6 @@
 import * as postService from '../services/postService.js'
-import { broadcast } from '../utils/ws.js'
+import { broadcast } from '../utils/wsManager.js'
+import { createPostSchema } from '../utils/schemas.js'
 
 export const getPosts = async (req, res, next) => {
   try {
@@ -12,13 +13,16 @@ export const getPosts = async (req, res, next) => {
 
 export const createPost = async (req, res, next) => {
   try {
-    const { content } = req.body || {}
+    const { content } = createPostSchema.parse(req.body)
     // req.user is populated by the protect middleware
     const newPost = await postService.createPost({ content, user: req.user })
     
-    broadcast(req.app.locals.wss, { type: 'post', data: newPost })
+    broadcast({ type: 'post', data: newPost })
     res.status(201).json(newPost)
   } catch (error) {
+    if (error.name === 'ZodError') {
+      return res.status(400).json({ error: error.errors });
+    }
     next(error)
   }
 }

@@ -18,7 +18,20 @@ import { useStore } from './contexts/StoreContext'
 import { useAuth } from './hooks/useAuth'
 import { usePosts } from './hooks/usePosts'
 
-export default function App() {
+import { ThemeProvider } from './app/ThemeContext'
+import { ErrorBoundary } from './app/ErrorBoundary'
+
+export default function AppRoot() {
+  return (
+    <ErrorBoundary>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </ErrorBoundary>
+  )
+}
+
+function App() {
   const { users, currentUser, notifications, isBooting, setIsBooting } = useStore()
   const { posts, commentsByPost, handleCreatePost, handleLike, handleRepost, handleAddComment } = usePosts()
   const { handleAuth, handleFollow } = useAuth()
@@ -29,6 +42,9 @@ export default function App() {
   const [composer, setComposer] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [activeCommentPostId, setActiveCommentPostId] = useState<string | null>(null)
+
+  // (Keeping original data logic un-refactored for this iteration to avoid breaking huge chunks, 
+  // only updating Layout & Theme context variables inside the UI tree)
 
   const feedPosts = useMemo(() => {
     if (feedMode === 'global') return posts
@@ -46,9 +62,7 @@ export default function App() {
 
   const handleNavigate = (view: ViewKey) => {
     setActiveView(view)
-    if (view === 'profile') {
-      setSelectedProfileId(currentUser?.id || 'u1')
-    }
+    if (view === 'profile') setSelectedProfileId(currentUser?.id || 'u1')
   }
 
   const handleOpenProfile = useCallback((userId: string) => {
@@ -83,24 +97,26 @@ export default function App() {
   if (!currentUser) return null
 
   return (
-    <div className="relative min-h-screen overflow-hidden text-white bg-[#030712]">
+    <div className="relative min-h-screen overflow-hidden text-text bg-bg pb-20 lg:pb-0">
       <CyberBackground />
       {isBooting && <LoadingOverlay onFinish={() => setIsBooting(false)} />}
-      <div className="scanlines pointer-events-none absolute inset-0" />
-      <div className="noise pointer-events-none absolute inset-0" />
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-6 lg:px-6">
-        <div className="grid gap-6 lg:grid-cols-[240px_1fr_280px]">
+      <div className="scanlines pointer-events-none absolute inset-0 z-0" />
+      <div className="noise pointer-events-none absolute inset-0 z-0" />
+      
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-4 lg:py-6 lg:px-6">
+        {/* Responsive Grid Shell */}
+        <div className="flex flex-col lg:grid gap-6 lg:grid-cols-[240px_1fr_280px]">
           <Sidebar active={activeView} onSelect={handleNavigate} />
 
-          <main className="space-y-6">
+          <main className="space-y-6 min-h-[calc(100vh-120px)] lg:min-h-0">
             {activeView === 'home' && (
               <>
                 <Composer value={composer} onChange={setComposer} onSubmit={onSubmitPost} />
                 <div className="glass-panel p-4 flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <h2 className="text-lg font-semibold">Timeline Feed</h2>
-                    <p className="text-xs text-white/60">
-                      {feedMode === 'global' ? 'Global stream' : 'Following stream'} · Text-only
+                    <h2 className="text-lg font-semibold text-text">Timeline Feed</h2>
+                    <p className="text-xs text-text-muted">
+                      {feedMode === 'global' ? 'Global stream' : 'Following stream'} &middot; Text-only
                     </p>
                   </div>
                   <div className="flex gap-2">
@@ -109,14 +125,14 @@ export default function App() {
                       variant={feedMode === 'following' ? 'primary' : 'ghost'}
                       onClick={() => setFeedMode('following')}
                     >
-                      Following
+                       Following
                     </CyberButton>
                     <CyberButton
                       size="sm"
                       variant={feedMode === 'global' ? 'primary' : 'ghost'}
                       onClick={() => setFeedMode('global')}
                     >
-                      Global
+                       Global
                     </CyberButton>
                   </div>
                 </div>
@@ -157,12 +173,6 @@ export default function App() {
 
             {activeView === 'network' && (
               <div className="space-y-6">
-                <div className="glass-panel p-5">
-                  <h2 className="text-lg font-semibold">City Grid</h2>
-                  <p className="mt-2 text-sm text-white/60">
-                    Each user is bound to a node on the grid. Click a node to inspect.
-                  </p>
-                </div>
                 <NetworkMap3D users={users} currentUserId={currentUser.id} onSelectUser={handleOpenProfile} />
               </div>
             )}
@@ -193,7 +203,7 @@ export default function App() {
                   onFollow={handleFollow}
                 />
                 <div className="glass-panel p-5">
-                  <h3 className="font-semibold text-white">User Posts</h3>
+                  <h3 className="font-semibold text-text">User Posts</h3>
                   <div className="mt-4 space-y-4">
                     {profilePosts.map((post) => (
                       <PostCard
@@ -209,7 +219,7 @@ export default function App() {
                       />
                     ))}
                     {profilePosts.length === 0 && (
-                      <div className="border border-white/15 bg-black/70 p-4 text-sm text-white/60">
+                      <div className="border border-border bg-surface-elevated p-4 text-sm text-text-muted">
                         No posts yet for this profile.
                       </div>
                     )}
@@ -219,7 +229,7 @@ export default function App() {
             )}
           </main>
 
-          <div className="space-y-6">
+          <div className="space-y-6 hidden lg:block">
             <AuthPanel onAuth={handleAuth} />
             <RightSidebar
               trends={seedTrends.slice(0, 4)}

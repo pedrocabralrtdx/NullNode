@@ -106,9 +106,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         avatar: 'ED',
         content: drop,
         timestamp: new Date().toISOString(),
-        likes: Math.floor(Math.random() * 80) + 12,
+        likes: [],
         comments: Math.floor(Math.random() * 12),
-        reposts: Math.floor(Math.random() * 18)
+        reposts: []
       }
       setPosts((prev) => [livePost, ...prev])
     }, 14000)

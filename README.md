@@ -1,48 +1,46 @@
 # NullNode
 
-NullNode is a minimalist text-based social network with a cyberpunk/Matrix aesthetic.
-=======
+> A cyberpunk social network built around an explorable 3D city.
 
-![NullNode Preview](./public/preview.jpg)
-
-> A modern, minimal, and fully secured social networking experiment.
-
-NullNode is a sleek platform built to visualize connections, share thoughts in real-time, and explore a cyberpunk-inspired digital network. It's built with clean architecture in mind, using a strict MVC backend and robust React abstraction on the frontend.
+NullNode is a sleek, minimal platform where each user owns a house in a shared neon-lit city. Walk through the streets, visit residences, share thoughts in real-time, and explore a cyberpunk-inspired digital network — all rendered with Three.js in a first-person immersive view.
 
 ## ✨ Features
 
-- **Robust Clean Architecture**: A fully separated Model-View-Controller backend schema ensuring maintainability and separation of business logic from routing.
-- **JWT Security & Validation**: The API securely verifies standard JWT Tokens across all protected endpoints, keeping unauthorized users out. XSS sanitization safeguards post injections.
-- **Real-Time Feed**: Powered by native WebSockets, see new posts instantly as they happen.
-- **Dynamic 3D Network**: Visualize the user grid with interactive Three.js environments (City Grid mode).
-- **Interactive Terminal**: A pseudo-CLI interface for interacting with the platform.
-- **Global & Following Streams**: Seamlessly toggle between all network activity and your curated feed.
+- **Explorable 3D City** — Walk through a procedurally generated cyberpunk city with WASD controls and mouse look. Each user has a unique house with a neon nameplate.
+- **Real-Time Feed** — Powered by native WebSockets. See new posts and notifications as they happen.
+- **Clean Architecture** — Strict MVC backend with Zod validation, JWT security, and a modular frontend built with isolated Zustand stores.
+- **Dual Theme System** — Seamless Dark (Night) and Light (Grid Day) themes that sync across the entire UI and the 3D engine.
+- **Interactive Terminal** — A pseudo-CLI interface for power users.
+- **Global & Following Streams** — Toggle between all network activity and your curated feed.
+- **Mobile-First Layout** — Responsive design with a bottom navigation bar on mobile and a full sidebar on desktop.
 
 ## 🛠 Tech Stack
 
 **Frontend:**
-- [React 18](https://react.dev/) + [Vite](https://vitejs.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- Local Storage State Management + Custom Hooks
-- [Three.js](https://threejs.org/) (for 3D network visualizations)
-- [Framer Motion](https://www.framer.com/motion/) & [GSAP](https://gsap.com/)
+- [React 18](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) + [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/) with CSS variable design tokens
+- [Zustand](https://zustand-demo.pmnd.rs/) for state management
+- [Three.js](https://threejs.org/) — First-person 3D city engine
+- [Framer Motion](https://www.framer.com/motion/) & [GSAP](https://gsap.com/) for animations
+- [Zod](https://zod.dev/) for runtime validation
 
 **Backend (Node.js & Express):**
-- Strict **MVC Layering** (`routes` -> `controllers` -> `services` -> `models`)
-- `jsonwebtoken` for secure Auth flows and `xss` for input validation.
-- Centralized Error Handling Middleware.
-- Custom Local JSON Database wrappers.
-- Native WebSockets (`ws`).
+- Strict **MVC Layering** (`routes` → `controllers` → `services` → `models`)
+- `jsonwebtoken` for secure auth flows
+- `xss` for input sanitization
+- Centralized Error Handling Middleware
+- Custom JSON Database wrappers
+- Native WebSockets (`ws`) via `wsManager`
 
 ## 🚀 Quick Start
 
-Ensure you have Node.js (v18+) installed.
+Ensure you have **Node.js v18+** installed.
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/nullnode.git
-cd nullnode
+git clone https://github.com/pedrocabralrtdx/NullNode.git
+cd NullNode
 ```
 
 ### 2. Install dependencies
@@ -52,8 +50,6 @@ npm install
 ```
 
 ### 3. Setup the database
-
-The database relies on a seeded JSON file. Copy the setup file to the DB instance file:
 
 ```bash
 cp server/db.seed.json server/db.json
@@ -65,37 +61,83 @@ cp server/db.seed.json server/db.json
 cp .env.example .env
 ```
 
-### 5. Run the application
+Edit `.env` and set your `JWT_SECRET`.
 
-To start both the client and the server concurrently:
+### 5. Run the application
 
 ```bash
 npm run dev
 ```
 
-- The UI will be available at `http://localhost:5173`
-- The API & WebSocket Server run on `http://localhost:5174`
+- **UI**: `http://localhost:5173`
+- **API & WebSocket Server**: `http://localhost:5174`
 
-## 📁 System Architecture
+### 6. Production build
+
+```bash
+npm run build
+npm start
+```
+
+## 📜 Available Scripts
+
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Start frontend + backend concurrently |
+| `npm run dev:client` | Start only the Vite dev server |
+| `npm run dev:server` | Start only the Express API server |
+| `npm run build` | TypeScript check + Vite production build |
+| `npm run preview` | Preview the production build locally |
+| `npm start` | Start the production API server |
+
+## 🎮 3D City Controls
+
+| Action | Key |
+| --- | --- |
+| Move Forward | `W` / `↑` |
+| Move Backward | `S` / `↓` |
+| Strafe Left | `A` / `←` |
+| Strafe Right | `D` / `→` |
+| Look Around | Mouse |
+| Select House | Click / `Enter` |
+| Release Cursor | `Esc` |
+
+## 📁 Project Architecture
 
 ```text
 ├── server/
-│   ├── routes/        # Express API endpoints
-│   ├── controllers/   # Req/Res parsing map
-│   ├── services/      # Business logic & sanitization validation
-│   ├── models/        # Application Data Access Layer abstraction
-│   ├── middlewares/   # JWT parsing & global error formatting
-│   ├── utils/         # Core utilities (DB reader, WS broadcast)
-│   └── index.js       # Entry point for express config
+│   ├── controllers/     # Request parsing + Zod validation
+│   ├── middlewares/      # JWT auth & global error handling
+│   ├── models/           # Data Access Layer (JSON DB)
+│   ├── routes/           # Express API endpoints
+│   ├── services/         # Business logic & sanitization
+│   ├── utils/            # DB reader, WebSocket manager, Zod schemas
+│   ├── db.seed.json      # Initial seed data
+│   └── index.js          # Server entry point
 ├── src/
-│   ├── components/    # Reusable UI components
-│   ├── contexts/      # React Global Store Context
-│   ├── hooks/         # Custom React Hooks (JWT management, fetching)
-│   ├── data/          # Initial seed data constants
-│   └── App.tsx        # Main application layout
+│   ├── app/              # ThemeContext, ErrorBoundary
+│   ├── components/       # Reusable UI components
+│   │   └── ui/           # Animated sub-components
+│   ├── contexts/         # React Store Context
+│   ├── data/             # Seed data constants
+│   ├── engine3d/         # CityEngine (Three.js first-person city)
+│   ├── features/         # Feature stores (auth, feed — Zustand)
+│   ├── hooks/            # Custom React Hooks (useAuth, usePosts)
+│   ├── lib/              # Utility functions
+│   ├── types/            # TypeScript module declarations
+│   ├── App.tsx           # Main application layout
+│   ├── main.tsx          # React entry point
+│   ├── index.css         # Design system & theme tokens
+│   └── types.ts          # Shared TypeScript interfaces
+├── .env.example          # Environment variable template
+├── index.html            # HTML entry point
+├── package.json          # Dependencies & scripts
+├── tailwind.config.cjs   # Tailwind CSS configuration
+├── tsconfig.json         # TypeScript configuration
+├── vite.config.ts        # Vite bundler configuration
+└── LICENSE               # MIT License
 ```
 
 ## 📜 License
 
-[MIT](./LICENSE)
->>>>>>> b1df1ed (V01)
+[MIT](./LICENSE) — Pedro Júlio Cabral Neto

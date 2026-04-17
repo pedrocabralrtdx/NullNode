@@ -58,9 +58,9 @@ export const posts: Post[] = [
     content:
       'NullNode is live. The timeline breathes again. Follow the signals, trust the pulse.',
     timestamp: minutes(6),
-    likes: 218,
+    likes: ['u2'],
     comments: 42,
-    reposts: 31,
+    reposts: ['u2'],
     liked: true
   },
   {
@@ -72,9 +72,9 @@ export const posts: Post[] = [
     content:
       'Designing a social layer that feels alive. Neon edges, soft glows, zero noise.',
     timestamp: minutes(18),
-    likes: 146,
+    likes: ['u1'],
     comments: 18,
-    reposts: 12
+    reposts: [],
   },
   {
     id: 'p3',
@@ -85,9 +85,9 @@ export const posts: Post[] = [
     content:
       'Tonight we ship the network map. Every follow, reply, and repost becomes light.',
     timestamp: minutes(26),
-    likes: 390,
+    likes: [],
     comments: 68,
-    reposts: 44
+    reposts: [],
   },
   {
     id: 'p4',
@@ -98,9 +98,9 @@ export const posts: Post[] = [
     content:
       'Realtime feed latency is now under 120ms. The grid feels instant.',
     timestamp: minutes(42),
-    likes: 98,
+    likes: [],
     comments: 11,
-    reposts: 9
+    reposts: [],
   },
   {
     id: 'p5',
@@ -111,9 +111,9 @@ export const posts: Post[] = [
     content:
       'NullNode is a public social platform. No dark net vibes, just luminous conversation.',
     timestamp: minutes(65),
-    likes: 206,
+    likes: [],
     comments: 22,
-    reposts: 17
+    reposts: [],
   },
   {
     id: 'p6',
@@ -124,9 +124,9 @@ export const posts: Post[] = [
     content:
       'Trending graph is peaking. Keep sharing, keep connecting.',
     timestamp: minutes(110),
-    likes: 74,
+    likes: [],
     comments: 6,
-    reposts: 4
+    reposts: [],
   }
 ]
 

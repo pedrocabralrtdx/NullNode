@@ -19,9 +19,9 @@ export type Post = {
   avatar: string
   content: string
   timestamp: string
-  likes: number
+  likes: string[]
   comments: number
-  reposts: number
+  reposts: string[]
   liked?: boolean
   reposted?: boolean
 }

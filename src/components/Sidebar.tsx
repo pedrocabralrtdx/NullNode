@@ -29,16 +29,41 @@ type Props = {
 
 export default function Sidebar({ active, onSelect }: Props) {
   return (
-    <aside className="flex lg:flex-col gap-4 lg:gap-6">
-      <div className="glass-panel px-4 py-3 flex items-center gap-3">
-        <div className="h-10 w-10 border border-white/30 bg-black flex items-center justify-center text-lg font-bold text-neon-green">
-          N
+    <>
+      {/* Desktop Sidebar */}
+      <aside className="hidden lg:flex flex-col gap-6">
+        <div className="glass-panel px-4 py-3 flex items-center gap-3">
+          <div className="h-10 w-10 border border-border bg-surface flex items-center justify-center text-lg font-bold text-primary">
+            N
+          </div>
+          <div className="font-display text-lg">
+            <GlitchText text="// NullNode" className="glitch-hover" />
+          </div>
         </div>
-        <div className="font-display text-lg">
-          <GlitchText text="// NullNode" className="glitch-hover" />
-        </div>
-      </div>
-      <nav className="glass-panel p-3 flex lg:flex-col gap-2 overflow-x-auto">
+        <nav className="glass-panel p-3 flex flex-col gap-2">
+          {navItems.map((item) => {
+            const isActive = item.id === active
+            return (
+              <button
+                key={item.id}
+                onClick={() => onSelect(item.id)}
+                className={[
+                  'flex items-center gap-3 px-3 py-3 text-sm transition-all duration-200 border border-transparent rounded-sm',
+                  isActive
+                    ? 'bg-primary/10 text-text border-primary/40 shadow-neon'
+                    : 'text-text-muted hover:text-text hover:border-border/50 hover:bg-surface-elevated'
+                ].join(' ')}
+              >
+                <span className={isActive ? 'text-primary' : 'text-text-muted'}>{item.icon}</span>
+                <span className="whitespace-nowrap">{item.label}</span>
+              </button>
+            )
+          })}
+        </nav>
+      </aside>
+
+      {/* Mobile Bottom Navigation */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-surface border-t border-border shadow-[0_-5px_20px_rgba(0,0,0,0.5)] flex justify-between items-center px-4 py-2 pb-safe">
         {navItems.map((item) => {
           const isActive = item.id === active
           return (
@@ -46,18 +71,16 @@ export default function Sidebar({ active, onSelect }: Props) {
               key={item.id}
               onClick={() => onSelect(item.id)}
               className={[
-                'flex items-center gap-3 px-3 py-2 text-sm transition-all duration-200 border border-transparent',
-                isActive
-                  ? 'bg-white/10 text-white border-white/40 shadow-neon'
-                  : 'text-white/70 hover:text-white hover:border-white/25 hover:bg-white/5'
+                'flex flex-col items-center justify-center gap-1 p-2 rounded-lg transition-colors',
+                isActive ? 'text-primary' : 'text-text-muted hover:text-text'
               ].join(' ')}
             >
-              <span className={isActive ? 'text-neon-green' : 'text-white/70'}>{item.icon}</span>
-              <span className="whitespace-nowrap">{item.label}</span>
+              <span className="text-xl">{item.icon}</span>
+              <span className="text-[10px] uppercase font-bold tracking-wider">{item.label}</span>
             </button>
           )
         })}
       </nav>
-    </aside>
+    </>
   )
 }
