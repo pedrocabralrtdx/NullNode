@@ -1,7 +1,12 @@
 import jwt from 'jsonwebtoken'
 import { UserModel } from '../models/UserModel.js'
 
-const JWT_SECRET = process.env.JWT_SECRET || 'nullnode_super_secret_dev_key'
+const JWT_SECRET = process.env.JWT_SECRET
+
+if (!JWT_SECRET) {
+  console.error('CRITICAL ERROR: JWT_SECRET environment variable is not set. Please set it in your .env file.')
+  process.exit(1)
+}
 
 export const protect = async (req, res, next) => {
   let token
