@@ -140,4 +140,5 @@ npm start
 
 ## 📜 License
 
-[MIT](./LICENSE) — Pedro Júlio Cabral Neto
+[MIT](./LICENSE) — zezortdx
+
